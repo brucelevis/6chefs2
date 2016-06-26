@@ -201,8 +201,15 @@ bool SystemMessage::init(rapidjson::Value& json)
     return true;
 }
 
+#include "UI/VideoSprite.h"
+
 void SystemMessage::run()
 {
+    VideoSprite* video { VideoSprite::create("sample.mp4") };
+    video->setPosition(WINDOW_CENTER);
+    video->play();
+    DungeonSceneManager::getInstance()->getScene()->addChild(video);
+    
     DungeonSceneManager::getInstance()->getScene()->addChild(SystemMessageLayer::create(this->datas, [this]{this->setDone();}), Priority::SYSTEM_MESSAGE);
 }
 
